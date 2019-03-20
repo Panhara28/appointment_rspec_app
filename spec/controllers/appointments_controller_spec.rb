@@ -49,4 +49,38 @@ RSpec.describe AppointmentsController, type: :controller do
     end
   end
 
+  describe "PUT #update" do
+    context "with valid params" do
+      let(:new_attribute){
+        { id: 1 }
+      }
+      it "update the request appointment" do
+        appointment = Appointment.create!
+        put :update, params: { id: appointment.to_param, appointment: new_attribute }
+        appointment.reload
+      end
+
+      it "redirects to appointment" do
+        appointment = Appointment.create!
+        put :update, params: { id: appointment.to_param, appointment: validate_attributes}
+        expect(response).to redirect_to(appointment)
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+    it "destroy the requested appointment" do
+      appointment = Appointment.create!
+      expect{
+        delete :destroy, params: { id: appointment.to_param}
+      }.to change(Appointment, :count).by(0)
+    end
+
+    it "redirects to the appointments lists" do
+      appointment = Appointment.create!
+      delete :destroy, params: { id: appointment.to_param }
+      expect(response).to redirect_to("/appointments")
+    end
+  end
+
 end

@@ -34,4 +34,5 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     redirect_to appointments_path
   end
+  
 end
