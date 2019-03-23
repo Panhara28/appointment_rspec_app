@@ -31,22 +31,20 @@ RSpec.describe AppointmentsController, type: :controller do
     context "with valid params" do
       it "create a new Appointment" do
         expect{
-          appointment = Appointment.create! validate_attributes
-          post :create, params: {appointment: appointment}
+          post :create, params: { appointment: validate_attributes }
         }.to change(Appointment, :count).by(1)
       end
 
       it "redirects to the create appointment" do
-        appointment = Appointment.create! validate_attributes
-        post :create, params: { appointment: appointment }
-        expect(response).to have_http_status(200)
+        post :create, params: { appointment: validate_attributes }
+        expect(response).to have_http_status(302)
       end
     end
 
     context "with invalid params" do
       it "returns a success respose and display the new template" do
         post :create, params: { appointment: validate_attributes }
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(302)
       end
     end
   end

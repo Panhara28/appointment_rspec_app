@@ -14,6 +14,9 @@ RSpec.describe Client, type: :model do
 
     it{ should validate_length_of(:name).is_at_most(20)}
     it{ should validate_numericality_of(:phone).only_integer }
+  end
 
+  context "Client's association" do
+    it{ should have_many(:appointments) }
   end
 end

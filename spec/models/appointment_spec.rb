@@ -17,4 +17,8 @@ RSpec.describe Appointment, type: :model do
     it{ should validate_numericality_of(:duration).only_integer }
   end
 
+  context "Appointment's association" do
+    it{ should belong_to(:client) }
+  end
+  
 end

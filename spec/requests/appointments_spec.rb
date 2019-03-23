@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Appointments", type: :request do
   let(:validate_attributes){
-    { id: 1, appointment_date: Time.now, duration: 10, price: 200 }
+    { id: 1, appointment_date: Time.now, duration: 32, price: 100 }
   }
 
   describe "GET /appointments" do
@@ -31,7 +31,7 @@ RSpec.describe "Appointments", type: :request do
 
   describe "POST /appointments" do
     it "should requests to /appointments" do
-      post "/appointments", params: { appointment: :validate_attributes }
+      post "/appointments", params: { appointment:  validate_attributes}
       expect(response).to redirect_to(assigns(:appointment))
       follow_redirect!
       expect(response).to render_template(:show)
