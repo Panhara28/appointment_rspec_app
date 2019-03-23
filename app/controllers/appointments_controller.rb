@@ -12,7 +12,7 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = Appointment.new
+    @appointment = Appointment.new(appointment_params)
     if @appointment.save
       redirect_to appointment_path(@appointment)
       flash[:notice] = "Appointment was successfully created"
@@ -34,5 +34,9 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     redirect_to appointments_path
   end
-  
+
+  private
+    def appointment_params
+
+    end
 end

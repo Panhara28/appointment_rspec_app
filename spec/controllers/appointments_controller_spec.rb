@@ -65,7 +65,7 @@ RSpec.describe AppointmentsController, type: :controller do
       it "redirects to appointment" do
         appointment = Appointment.create! new_attribute
         put :update, params: { id: appointment.to_param, appointment: appointment}
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(302)
       end
     end
   end

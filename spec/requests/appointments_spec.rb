@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Appointments", type: :request do
+  let(:validate_attributes){
+    { id: 1, appointment_date: Time.now, duration: 10, price: 200 }
+  }
+
   describe "GET /appointments" do
     it "should requests to /appointments with appointments#index" do
       get "/appointments"
@@ -27,7 +31,8 @@ RSpec.describe "Appointments", type: :request do
 
   describe "POST /appointments" do
     it "should requests to /appointments" do
-      post "/appointments", params: { :appointment => { time: Time.now } }
+      appointment = Appointment.create! validate_attributes
+      post "/appointments", params: { :appointment => appointment }
       expect(response).to redirect_to(assigns(:appointment))
       follow_redirect!
       expect(response).to render_template(:show)
@@ -43,8 +48,8 @@ RSpec.describe "Appointments", type: :request do
     end
   end
 
-  describe "POST /appointments/1" do
-    before { Appointment.create!(id: 1) }
+  describe "PATCH /appointments/1" do
+    before { Appointment.create! validate_attributes }
     it "should requests to /appointments/1" do
       patch "/appointments/1", params: {  :appointment => { id: 1 } }
       expect(response).to have_http_status(302)
@@ -53,7 +58,7 @@ RSpec.describe "Appointments", type: :request do
   end
 
   describe "DELETE /appointments/1" do
-    before { Appointment.create!(id: 1) }
+    before { Appointment.create! validate_attributes }
     it "should requests to /appointments/1" do
       delete "/appointments/1", params: { :appointment => { id: 1 } }
       expect(response).to have_http_status(302)
