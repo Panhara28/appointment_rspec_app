@@ -31,8 +31,7 @@ RSpec.describe "Appointments", type: :request do
 
   describe "POST /appointments" do
     it "should requests to /appointments" do
-      appointment = Appointment.create! validate_attributes
-      post "/appointments", params: { :appointment => appointment }
+      post "/appointments", params: { appointment: :validate_attributes }
       expect(response).to redirect_to(assigns(:appointment))
       follow_redirect!
       expect(response).to render_template(:show)
