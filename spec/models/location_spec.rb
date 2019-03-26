@@ -21,7 +21,8 @@ RSpec.describe Location, type: :model do
   end
 
   context "Location's association" do
-    
+    it{ should have_many(:appointments) }
+    it{ should have_many(:clients) }
   end
 
 end
