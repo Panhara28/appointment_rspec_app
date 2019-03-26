@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Appointments", type: :request do
+  include_context "client setup"
+
   let(:validate_attributes){
-    { id: 1, appointment_date: Time.now, duration: 32, price: 100 }
+    { id: 1, appointment_date: Time.now, duration: 32, price: 100, client_id: client.id }
   }
 
   describe "GET /appointments" do
@@ -31,7 +33,7 @@ RSpec.describe "Appointments", type: :request do
 
   describe "POST /appointments" do
     it "should requests to /appointments" do
-      post "/appointments", params: { appointment:  validate_attributes}
+      post "/appointments", params: { :appointment => { id: 1, appointment_date: Time.now, duration: 32, price: 100, client_id: client.id  } }
       expect(response).to redirect_to(assigns(:appointment))
       follow_redirect!
       expect(response).to render_template(:show)
